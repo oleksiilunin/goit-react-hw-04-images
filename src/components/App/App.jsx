@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useState } from 'react';
 
 import ImageGallery from 'components/ImageGallery/ImageGallery';
 import Searchbar from 'components/Searchbar/Searchbar';
@@ -8,25 +8,17 @@ import 'react-toastify/dist/ReactToastify.css';
 import { GlobalStyles } from 'components/GlobalStyles';
 import { AppContainer } from './App.styled';
 
-class App extends Component {
-  state = {
-    searchQuery: '',
-  };
+function App() {
+  const [searchQuery, setSearchQuery] = useState('');
 
-  handleSearch = searchQuery => {
-    this.setState({ searchQuery });
-  };
-
-  render() {
-    return (
-      <AppContainer>
-        <Searchbar handleSearch={this.handleSearch} />
-        <ImageGallery searchQuery={this.state.searchQuery} />
-        <ToastContainer />
-        <GlobalStyles />
-      </AppContainer>
-    );
-  }
+  return (
+    <AppContainer>
+      <Searchbar handleSearch={setSearchQuery} />
+      <ImageGallery searchQuery={searchQuery} />
+      <ToastContainer />
+      <GlobalStyles />
+    </AppContainer>
+  );
 }
 
 export default App;

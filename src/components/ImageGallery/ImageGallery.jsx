@@ -62,7 +62,6 @@ class ImageGallery extends Component {
 
   handleLoadMore = () => {
     this.setState(prevState => ({ page: prevState.page + 1 }));
-    console.log(this.state.page);
   };
 
   render() {
