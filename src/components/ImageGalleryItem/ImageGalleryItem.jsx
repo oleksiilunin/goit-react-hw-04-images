@@ -8,17 +8,9 @@ import { Image, Item } from './ImageGalleryItem.styled';
 function ImageGalleryItem({ id, tags, webformatURL, largeImageURL }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  //TODO: Rewrite
-  // componentDidMount() {
-  //   document.addEventListener('keydown', this.onKeyDownCloseModal);
-  // }
-  // componentWillUnmount() {
-  //   document.removeEventListener('keydown', this.onKeyDownCloseModal);
-  // }
   useEffect(() => {
     const onKeyDownCloseModal = event => {
       if (event.code === 'Escape') {
-        console.log('Escape');
         setIsModalOpen(false);
       }
     };
@@ -30,30 +22,11 @@ function ImageGalleryItem({ id, tags, webformatURL, largeImageURL }) {
     };
   }, []);
 
-  // useEffect(() => {
-  //   return document.addEventListener('keydown', onKeyDownCloseModal);
-  // }, []);
-
-  // useEffect(() => {
-  //   return () => {
-  //     document.removeEventListener('keydown', onKeyDownCloseModal);
-  //   };
-  // }, []);
-  // const onKeyDownCloseModal = event => {
-  //   if (event.code === 'Escape') {
-  //     setIsModalOpen(false);
-  //   }
-  // };
-
   const onClickCloseModal = event => {
     if (event.target.classList.contains('overlay')) {
       setIsModalOpen(false);
     }
   };
-
-  // const handleItemClick = () => {
-  //   setIsModalOpen(true );
-  // };
 
   return (
     <>
