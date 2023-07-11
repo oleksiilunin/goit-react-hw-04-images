@@ -7,7 +7,7 @@ import { ModalWrapper, Overlay } from './Modal.styled';
 
 const Modal = ({ imageURL, alt, onClickCloseModal }) => {
   return ReactDOM.createPortal(
-    <Overlay onClick={onClickCloseModal}>
+    <Overlay onClick={onClickCloseModal} className="overlay">
       <ModalWrapper className="modal">
         <img src={imageURL} alt={alt} />
       </ModalWrapper>
