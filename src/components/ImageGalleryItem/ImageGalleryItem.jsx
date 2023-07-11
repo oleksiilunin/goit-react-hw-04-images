@@ -1,58 +1,74 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import PropTypes from 'prop-types';
 
 import Modal from 'components/Modal/Modal';
 import { Image, Item } from './ImageGalleryItem.styled';
 
-class ImageGalleryItem extends Component {
-  state = {
-    isModalOpen: false,
-  };
+function ImageGalleryItem({ id, tags, webformatURL, largeImageURL }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  componentDidMount() {
-    document.addEventListener('keydown', this.onKeyDownCloseModal);
-  }
+  //TODO: Rewrite
+  // componentDidMount() {
+  //   document.addEventListener('keydown', this.onKeyDownCloseModal);
+  // }
+  // componentWillUnmount() {
+  //   document.removeEventListener('keydown', this.onKeyDownCloseModal);
+  // }
+  useEffect(() => {
+    const onKeyDownCloseModal = event => {
+      if (event.code === 'Escape') {
+        console.log('Escape');
+        setIsModalOpen(false);
+      }
+    };
 
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.onKeyDownCloseModal);
-  }
+    document.addEventListener('keydown', onKeyDownCloseModal);
 
-  onClickCloseModal = event => {
+    return () => {
+      document.removeEventListener('keydown', onKeyDownCloseModal);
+    };
+  }, []);
+
+  // useEffect(() => {
+  //   return document.addEventListener('keydown', onKeyDownCloseModal);
+  // }, []);
+
+  // useEffect(() => {
+  //   return () => {
+  //     document.removeEventListener('keydown', onKeyDownCloseModal);
+  //   };
+  // }, []);
+  // const onKeyDownCloseModal = event => {
+  //   if (event.code === 'Escape') {
+  //     setIsModalOpen(false);
+  //   }
+  // };
+
+  const onClickCloseModal = event => {
     if (event.target.classList.contains('overlay')) {
-      this.setState({ isModalOpen: false });
+      setIsModalOpen(false);
     }
   };
 
-  onKeyDownCloseModal = event => {
-    if (event.code === 'Escape') {
-      this.setState({ isModalOpen: false });
-    }
-  };
+  // const handleItemClick = () => {
+  //   setIsModalOpen(true );
+  // };
 
-  handleItemClick = () => {
-    this.setState({ isModalOpen: true });
-  };
-
-  render() {
-    const { id, webformatURL, largeImageURL, tags } = this.props;
-    const { isModalOpen } = this.state;
-
-    return (
-      <>
-        <Item key={id} onClick={this.handleItemClick}>
-          <Image src={webformatURL} alt={tags} />
-        </Item>
-        {isModalOpen && (
-          <Modal
-            imageURL={largeImageURL}
-            alt={tags}
-            onClickCloseModal={this.onClickCloseModal}
-          />
-        )}
-      </>
-    );
-  }
+  return (
+    <>
+      <Item key={id} onClick={() => setIsModalOpen(true)}>
+        <Image src={webformatURL} alt={tags} />
+      </Item>
+      {isModalOpen && (
+        <Modal
+          imageURL={largeImageURL}
+          alt={tags}
+          onClickCloseModal={onClickCloseModal}
+        />
+      )}
+    </>
+  );
 }
 
 ImageGalleryItem.propTypes = {
