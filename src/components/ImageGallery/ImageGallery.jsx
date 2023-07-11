@@ -59,12 +59,9 @@ function ImageGallery({ searchQuery }) {
   return (
     <>
       {isLoading && error && <ErrorCard>{error}</ErrorCard>}
-      {searchQuery.length === 0 &&
-        !isLoading &&
-        images &&
-        images.length === 0 && (
-          <NoResultCard>Oops! There are no images found...</NoResultCard>
-        )}
+      {!isLoading && images && images.length === 0 && (
+        <NoResultCard>Oops! There are no images found...</NoResultCard>
+      )}
       <ImageGalleryList>
         {images &&
           images.map(({ id, webformatURL, largeImageURL, tags }) => {
